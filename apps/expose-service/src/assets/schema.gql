@@ -1,0 +1,22 @@
+type Post {
+	id: String!
+	title: String!
+	description: String
+}
+
+type Query {
+  helloWorld: String!
+}
+
+type Mutation {
+	addPost(newPostData: NewPostInput!): Post!
+}
+
+input NewPostInput {
+	title: String!
+	description: String
+}
+
+type Subscription {
+	postAdded: Post!
+}
