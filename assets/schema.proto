@@ -7,12 +7,14 @@ package post;
 message Post {
   int32 id = 1;
   string title = 2;
-  optional string description = 3;
+  string subTitle = 3;
+  optional string description = 4;
 }
 
 message CreatePostRequest {
   string title = 1;
-  optional string description = 2;
+  string subTitle = 2;
+  optional string description = 3;
 }
 
 service PostService {

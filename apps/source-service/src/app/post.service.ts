@@ -1,19 +1,29 @@
 import { Injectable } from '@nestjs/common';
-import { Observable, Subject } from 'rxjs';
 import { Post } from '@wmg/post';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable()
 export class PostService {
-	private subject: Subject<Post> = new Subject<Post>();
+	private postSubject$: Subject<Post> = new Subject<Post>();
+	private idSubject$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
-	addPost(data: { description?: string; title: string }): Post {
-		const post: Post = { ...data, id: '#ID' };
+	addPost(data: { description?: string; subTitle?: string; title: string }): Post {
+		const id: number = this.getNextId();
+		const post: Post = { ...data, id };
 
-		this.subject.next(post);
+		this.postSubject$.next(post);
 		return post;
 	}
 
 	getAddedPosts(): Observable<Post> {
-		return this.subject.asObservable();
+		return this.postSubject$.asObservable();
+	}
+
+	private getNextId(): number {
+		const currentId: number = this.idSubject$.getValue();
+
+		this.idSubject$.next(currentId + 1);
+
+		return currentId;
 	}
 }

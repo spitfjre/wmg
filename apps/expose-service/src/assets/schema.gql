@@ -1,11 +1,12 @@
 type Post {
-	id: String!
+	id: Int!
 	title: String!
+	subTitle: String
 	description: String
 }
 
 type Query {
-  helloWorld: String!
+	helloWorld: String!
 }
 
 type Mutation {
@@ -14,6 +15,7 @@ type Mutation {
 
 input NewPostInput {
 	title: String!
+  subTitle: String
 	description: String
 }
 

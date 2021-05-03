@@ -1,10 +1,11 @@
-import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
-import { PostGrpcClientService } from './post-grpc-client.service';
 import { Inject, Logger, OnModuleInit } from '@nestjs/common';
-import { Providers } from './providers.enum';
+import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
 import { PubSub } from 'apollo-server-express';
-import { NewPostInput, Post } from './graphql';
 import { tap } from 'rxjs/operators';
+
+import { NewPostInput, Post } from './graphql';
+import { PostGrpcClientService } from './post-grpc-client.service';
+import { Providers } from './providers.enum';
 
 const TRIGGER_NAME = 'postAdded';
 

@@ -1,7 +1,8 @@
 import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
+import { ClientGrpc } from '@nestjs/microservices';
 import { Post, PostService } from '@wmg/post';
 import { Observable } from 'rxjs';
-import { ClientGrpc } from '@nestjs/microservices';
+
 import { Providers } from './providers.enum';
 
 @Injectable()

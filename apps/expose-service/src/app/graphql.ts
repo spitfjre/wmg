@@ -8,6 +8,7 @@
 /* eslint-disable */
 export interface NewPostInput {
 	description?: string;
+	subTitle?: string;
 	title: string;
 }
 
@@ -17,7 +18,8 @@ export interface IMutation {
 
 export interface Post {
 	description?: string;
-	id: string;
+	id: number;
+	subTitle?: string;
 	title: string;
 }
 

@@ -1,8 +1,9 @@
 import { Controller } from '@nestjs/common';
-import { PostService } from './post.service';
 import { GrpcMethod } from '@nestjs/microservices';
-import { Observable } from 'rxjs';
 import { CreatePostRequest, Post } from '@wmg/post';
+import { Observable } from 'rxjs';
+
+import { PostService } from './post.service';
 
 @Controller()
 export class PostController {
