@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Post } from '@wmg/post';
 import { Apollo, gql } from 'apollo-angular';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 
 const ADD_POST_MUTATION = gql`
 	mutation AddPost($newPostData: NewPostInput!) {
@@ -46,9 +46,11 @@ export class PostService {
 
 	getAddedPosts(): Observable<Post> {
 		return this.apollo
-			.subscribe<{ postAdded: Post }>({
-				query: ADDED_POSTS_SUBSCRIPTION,
-			})
-			.pipe(map(result => result.data.postAdded));
+			.subscribe<{ postAdded: Post }>({ query: ADDED_POSTS_SUBSCRIPTION })
+			.pipe(
+				map(result => result.data?.postAdded),
+				filter(post => !!post),
+				map(post => post as Post),
+			);
 	}
 }

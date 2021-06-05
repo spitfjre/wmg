@@ -16,7 +16,16 @@
 		"baseUrl": ".",
 		"paths": {
 			"@wmg/post": ["libs/post/src/index.ts"]
-		}
+		},
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitAny": true,
+		"noImplicitReturns": true,
+		"noImplicitThis": true,
+		"noUncheckedIndexedAccess": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"strict": true,
+		"strictPropertyInitialization": false
 	},
 	"exclude": ["node_modules", "tmp"]
 }

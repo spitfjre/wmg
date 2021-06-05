@@ -14,36 +14,19 @@ import { Providers } from './providers.enum';
 		ClientsModule.register([
 			{
 				name: Providers.POST_PACKAGE,
+				options: { package: 'post', protoPath: 'assets/schema.proto' },
 				transport: Transport.GRPC,
-				options: {
-					package: 'post',
-					protoPath: 'assets/schema.proto',
-				},
 			},
 		]),
 		GraphQLModule.forRoot({
-			cors: {
-				origin: true,
-				credentials: true,
-			},
-			definitions: {
-				path: join(Process.cwd(), './apps/expose-service/src/app/graphql.ts'),
-			},
+			cors: { credentials: true, origin: true },
+			definitions: { path: join(Process.cwd(), './apps/expose-service/src/app/graphql.ts') },
 			installSubscriptionHandlers: true,
 			sortSchema: true,
-			subscriptions: {
-				keepAlive: 5000,
-			},
+			subscriptions: { keepAlive: 5000 },
 			typePaths: ['../**/*.gql'],
 		}),
 	],
-	providers: [
-		PostGrpcClientService,
-		PostsResolver,
-		{
-			provide: Providers.PUB_SUB,
-			useValue: new PubSub(),
-		},
-	],
+	providers: [PostGrpcClientService, PostsResolver, { provide: Providers.PUB_SUB, useValue: new PubSub() }],
 })
 export class AppModule {}

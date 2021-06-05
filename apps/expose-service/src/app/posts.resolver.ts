@@ -1,7 +1,6 @@
-import { Inject, Logger, OnModuleInit } from '@nestjs/common';
+import { Inject, OnModuleInit } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
 import { PubSub } from 'apollo-server-express';
-import { tap } from 'rxjs/operators';
 
 import { NewPostInput, Post } from './graphql';
 import { PostGrpcClientService } from './post-grpc-client.service';
@@ -19,7 +18,6 @@ export class PostsResolver implements OnModuleInit {
 	onModuleInit(): void {
 		this.postGrpcClientService
 			.getAddedPosts()
-			.pipe(tap((addedPost: Post) => Logger.debug('Added post: ' + JSON.stringify(addedPost))))
 			.subscribe((addedPost: Post) => this.pubSub.publish(TRIGGER_NAME, { [TRIGGER_NAME]: addedPost }).then());
 	}
 

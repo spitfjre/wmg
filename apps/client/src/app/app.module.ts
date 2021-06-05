@@ -28,10 +28,7 @@ import { PostComponent } from './post/post.component';
 				// Create an http link:
 				const http = httpLink.create({ uri: 'http://localhost:3333/graphql' });
 				// Create a WebSocket link:
-				const ws = new WebSocketLink({
-					uri: `ws://localhost:3333/graphql`,
-					options: { reconnect: true },
-				});
+				const ws = new WebSocketLink({ options: { reconnect: true }, uri: `ws://localhost:3333/graphql` });
 				// using the ability to split links, you can send data to each link
 				// depending on what kind of operation is being sent
 				const link = split(
@@ -44,10 +41,7 @@ import { PostComponent } from './post/post.component';
 					http,
 				);
 
-				return {
-					cache: new InMemoryCache(),
-					link,
-				};
+				return { cache: new InMemoryCache(), link };
 			},
 		},
 	],

@@ -1,25 +1,25 @@
 import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { ClientGrpc } from '@nestjs/microservices';
-import { Post, PostService } from '@wmg/post';
+import { Post, POST_SERVICE_NAME, PostGrpcService } from '@wmg/post';
 import { Observable } from 'rxjs';
 
 import { Providers } from './providers.enum';
 
 @Injectable()
 export class PostGrpcClientService implements OnModuleInit {
-	private postService: PostService;
+	private postGrpcService: PostGrpcService;
 
 	constructor(@Inject(Providers.POST_PACKAGE) private client: ClientGrpc) {}
 
 	onModuleInit(): void {
-		this.postService = this.client.getService<PostService>('PostService');
+		this.postGrpcService = this.client.getService<PostGrpcService>(POST_SERVICE_NAME);
 	}
 
 	addPost(data: { description?: string; title: string }): Promise<Post> {
-		return this.postService.createPost(data);
+		return this.postGrpcService.createPost(data);
 	}
 
 	getAddedPosts(): Observable<Post> {
-		return this.postService.getPostAddedSubscription();
+		return this.postGrpcService.getPostAddedSubscription();
 	}
 }

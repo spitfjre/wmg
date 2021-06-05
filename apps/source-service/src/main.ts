@@ -1,13 +1,11 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app/app.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
+
+import { AppModule } from './app/app.module';
 
 async function bootstrap() {
 	const app = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
-		options: {
-			package: 'post',
-			protoPath: 'assets/schema.proto',
-		},
+		options: { package: 'post', protoPath: 'assets/schema.proto' },
 		transport: Transport.GRPC,
 	});
 
